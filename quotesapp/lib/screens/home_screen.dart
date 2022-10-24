@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -15,17 +17,16 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      top:Platform.isIOS ? true : false,
       child: Scaffold(
-        appBar: AppBar(
-        
-        ),
+        appBar: AppBar(),
         body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                quote, 
-                style: TextStyle(fontSize: 30, color: Colors.black87),
+                quote,
+                style: const TextStyle(fontSize: 30, color: Colors.black87),
                 ),
             ),
             Padding(
@@ -38,20 +39,24 @@ class _HomeScreenState extends State<HomeScreen> {
                   )
                 ),
             ),
+            const SizedBox(height: 25.0,),
             ElevatedButton(
                 onPressed: () async {
 
-                  var url = Uri.parse('https://api.quotable.io/random');
-                  var response = await http.get(url);
-                  var data = jsonDecode(response.body);
+                  final url = Uri.parse('https://api.quotable.io/random');
+                  final response = await http.get(url);
+                  final data = jsonDecode(response.body);
 
-                  quote = data["content"];
-                  author = data["author"];
-
-                  setState(() {});
+                  setState(() {
+                    quote = data["content"];
+                    author = data["author"];
+                  });
 
                 },
-                child: Text("Get Quote!"),
+                child:const Padding(
+                  padding:  EdgeInsets.all(16.0),
+                  child:  Text("Get Quote!",style: TextStyle(fontSize: 20),),
+                ),
               ),
           ],
         ),
