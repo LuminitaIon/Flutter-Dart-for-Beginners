@@ -12,17 +12,26 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
+      home:  HomeScreen());
+  }
+}
 
-        primarySwatch: Colors.blue,
-      ),
-      home:  Scaffold(
-        appBar: AppBar(title:Text("Hello World!")),
-        floatingActionButton: FloatingActionButton(onPressed: () {},),
-         body: const Image(
-            image: NetworkImage('https://flutter.github.io/assets-for-api-docs/assets/widgets/owl.jpg'),
-          )
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( 
+      body: Stack(children: [
+          Container(
+            height: 200,
+            width: 200,
+            color: Colors.red,
           ),
+          Container(
+            height: 200,
+            width: 100,
+            color: Colors.yellow,
+          )
+      ]),
     );
   }
 }
